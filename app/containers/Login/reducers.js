@@ -1,6 +1,6 @@
 import { fromJS } from "immutable";
 import { createReducer } from "redux-act";
-import { submitLogin, saveUser } from "./actions";
+import { saveUser } from "./actions";
 
 export const initialState = fromJS({
   user: null,

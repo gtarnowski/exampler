@@ -1,20 +1,19 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
+import { small, heading, container } from "../../styles";
+import Logo from '../../components/Logo'
+import CategoryTiles from '../../components/CategoryTiles'
 
-class HomeScreen extends Component {
-  render() {
-    return (
-      <View style={container}>
-        <Text>here</Text>
-      </View>
-    );
-  }
-}
+const TXT_EXPLORE = "EXPLORE";
+const TXT_SWAPI = "Star Wars API Interpretation";
 
-const { container } = StyleSheet.create({
-  container: {
-    backgroundColor: "black"
-  }
-});
+const HomeScreen = () => (
+  <View style={container}>
+    <Logo />
+    <Text style={heading}>{TXT_EXPLORE}</Text>
+    <Text style={small}>{TXT_SWAPI}</Text>
+    <CategoryTiles />
+  </View>
+);
 
 export default HomeScreen;

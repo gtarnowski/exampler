@@ -1,63 +1,43 @@
-import React from "react";
+import React, { Component } from "react";
+import { Text, View } from "react-native";
 
-import { Button, TextInput, Text, View, Heading } from "@shoutem/ui";
-import { StyleSheet } from "react-native";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import { compose } from "redux";
-import { submitLogin } from "./actions";
-import { makeSelectUser } from "./selectors";
+import { heading, container } from "../../styles";
+import { Button, LinkButton, Row } from "../../ui";
+import Logo from '../../components/Logo'
 
-const Row = ({ children }) => <View style={row}>{children}</View>;
+class LoginHomeScreen extends Component {
+  static navigationOptions = {
+    header: null
+  };
+  render() {
+    const { navigation } = this.props;
 
-const Login = ({ onSubmit }) => (   
-  <View style={container}>
-    <Row>
-      <Heading styleName="bold h-center" style={heading}>
-        LOGIN
-      </Heading>
-    </Row>
-    <Row>
-      <TextInput placeholder="Username" />
-    </Row>
-    <Row>
-      <TextInput placeholder="Password" secureTextEntry />
-    </Row>
-    <Row>
-      <Button onPress={onSubmit}>
-        <Text>LOGIN</Text>
-      </Button>
-    </Row>
-  </View>
-);
+    const onRedirectToRegister = () => navigation.navigate("Register");
+    const onRedirectToLogin = () => navigation.navigate("Login");
 
-const mapStateToProps = createStructuredSelector({
-  user: makeSelectUser()
-});
+    return (
+      <View style={container}>
+        <Logo />
+        <Row>
+          <Text style={heading}>EXAMPLER</Text>
+        </Row>
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit: payload => dispatch(submitLogin(payload))
-});
+        {/*<Form type={LoginModel} options={options} stylesheet={formStyles}/>*/}
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+        <Row>
+          <Button onPress={onRedirectToLogin} title="LOGIN" color="white" />
+        </Row>
+        <Row>
+          <LinkButton
+            onPress={onRedirectToRegister}
+            title="Do not have an account?"
+          />
+        </Row>
+      </View>
+    );
+  }
+}
 
-const { container, row, heading } = StyleSheet.create({
-    container: {
-        backgroundColor: "transparent",
-        padding: 16,
-        alignContent: "center",
-        justifyContent: "center",
-        flex: 1,
-    },
-    row: {
-        padding: 16
-    },
-    heading: {
-        color: "white",
-    }
-});
-
-export default compose(withConnect)(Login);
+export Login from "./Login";
+export Register from "./Register";
+export default LoginHomeScreen;

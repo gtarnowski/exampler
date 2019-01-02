@@ -3,13 +3,12 @@
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
-    "ios": "expo start --ios",
     "eject": "expo eject"
   },
   "dependencies": {
-    "@shoutem/ui": "^0.23.9",
     "expo": "^31.0.2",
     "immutable": "^4.0.0-rc.12",
+    "lodash": "^4.17.11",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-native-linear-gradient": "^2.5.3",
@@ -19,7 +18,8 @@
     "redux": "^4.0.1",
     "redux-act": "^1.7.4",
     "redux-saga": "^0.16.2",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "tcomb-form-native": "^0.6.20"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

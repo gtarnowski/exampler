@@ -1,14 +1,18 @@
 import { combineReducers, applyMiddleware, createStore, compose } from "redux";
+import { all, fork } from "redux-saga/effects";
 import createSagaMiddleware from "redux-saga";
 
 // Reducers
 import login from "../containers/Login/reducers";
+import categories from "../containers/Categories/reducers";
 
 // Sagas
-import searchBarSagas from "../containers/Login/saga";
+import loginSagas from "../containers/Login/saga";
+import categoriesSagas from "../containers/Categories/saga";
 
 const combinedReducers = combineReducers({
-  login
+  login,
+  categories
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -18,4 +22,8 @@ export const store = createStore(
   compose(applyMiddleware(sagaMiddleware))
 );
 
-sagaMiddleware.run(searchBarSagas);
+function* rootSaga() {
+  yield all([loginSagas(), categoriesSagas()]);
+}
+
+sagaMiddleware.run(rootSaga);

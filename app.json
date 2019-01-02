@@ -23,7 +23,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ABCDE12345.com.cocoacasts.scribbles"
+    },
+    "android": {
+      "package": "com.tundra.exampler"
     }
   }
 }
