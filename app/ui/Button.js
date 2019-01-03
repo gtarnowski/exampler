@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, TouchableHighlight, View } from "react-native";
-import { colors } from '../styles'
+import { colors } from "../styles";
 
 const Button = ({ onPress, title }) => (
   <TouchableHighlight onPress={onPress}>
@@ -10,6 +10,7 @@ const Button = ({ onPress, title }) => (
         height: 42,
         justifyContent: "center",
         padding: 8,
+        borderRadius: 3
       }}
     >
       <Text
@@ -20,7 +21,7 @@ const Button = ({ onPress, title }) => (
           letterSpacing: 1
         }}
       >
-        {(title).toUpperCase()}
+        {title.toUpperCase()}
       </Text>
     </View>
   </TouchableHighlight>

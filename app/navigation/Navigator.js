@@ -1,7 +1,7 @@
 import { createAppContainer, createStackNavigator } from "react-navigation";
 
 // Screens
-import HomeScreen from "../containers/HomeScreen";
+import HomeScreen from "../components/HomeScreen";
 import Categories from "../containers/Categories";
 import LoginHomeScreen, { Login, Register } from "../containers/Login";
 import { colors } from "../styles";
@@ -9,7 +9,7 @@ import { colors } from "../styles";
 export const navigationOptions = {
   title: "",
   headerTransparent: true,
-  headerTintColor: colors.snow,
+  headerTintColor: colors.snow
 };
 
 const appNavigation = createStackNavigator({
@@ -20,8 +20,7 @@ const appNavigation = createStackNavigator({
     }
   },
   Categories: {
-    screen: Categories,
-    navigationOptions
+    screen: Categories
   }
 });
 

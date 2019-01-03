@@ -1,32 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
 import { withNavigation } from "react-navigation";
 import { connect } from "react-redux";
 import { compose } from "redux";
 
-import { colors, heading, container } from "../styles";
+import { colors, wrapper } from "../styles";
 import { categorySet } from "../containers/Categories/actions";
 import { createStructuredSelector } from "reselect";
-
-const style = {
-  backgroundColor: colors.backgroundLighter,
-  width: "40%",
-  height: 100,
-  justifyContent: "center",
-  margin: 10
-};
-
-const viewStyle = {
-  alignSelf: "center",
-  alignContent: "center",
-  alignItems: "center"
-};
-
-const textStyle = {
-  color: colors.snow,
-  fontWeight: "600",
-  fontSize: 17
-};
 
 const Tile = props => {
   const {
@@ -45,12 +25,12 @@ const Tile = props => {
 
   return (
     <TouchableHighlight
-      style={style}
+      style={container}
       onPress={() => onRedirectToCategory(name)}
     >
-      <View style={viewStyle}>
+      <View style={wrapper}>
         <Icon name={iconName} size={50} color={colors.snow} />
-        <Text style={textStyle}>{name.toUpperCase()}</Text>
+        <Text style={text}>{name.toUpperCase()}</Text>
       </View>
     </TouchableHighlight>
   );
@@ -66,6 +46,22 @@ const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps
 );
+
+const { container, text } = StyleSheet.create({
+  container: {
+    backgroundColor: colors.backgroundLighter,
+    width: "40%",
+    height: 100,
+    justifyContent: "center",
+    margin: 10,
+    borderRadius: 3
+  },
+  text: {
+    color: colors.snow,
+    fontWeight: "600",
+    fontSize: 17
+  }
+});
 
 export default compose(
   withConnect,

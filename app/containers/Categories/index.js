@@ -1,132 +1,55 @@
+// External libs
 import React from "react";
-import { Constants } from "expo";
-
-import {
-  View,
-  Text,
-  ListView,
-  ScrollView,
-  ActivityIndicator,
-  TouchableHighlight
-} from "react-native";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { compose } from "redux";
+import { upperFirst } from "lodash";
+import { ListView, StyleSheet } from "react-native";
+import EmptyListing from "../../components/EmptyListing";
+import Loader from "../../components/Loader";
 
+// Local imports
+import ItemComponent from "./ItemComponent";
 import { searchCategoryItems } from "./actions";
+import { colors } from "../../styles";
 import {
   makeSelectCategory,
   makeSelectCategoryItems,
   makeSelectErrorState,
   makeSelectLoadingState
 } from "./selectors";
-import { Divider } from "../../ui";
-import { colors, heading } from "../../styles";
-
-const container = {
-  backgroundColor: colors.background,
-  paddingTop: 70,
-  paddingHorizontal: 16
-};
-
-const loaderContainer = {
-  justifyContent: "center",
-  height: "100%",
-  backgroundColor: colors.background
-};
-
-const text = {
-  color: colors.snow
-}
 
 class Categories extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: `${upperFirst(navigation.state.params.categoryName)}`,
+    headerTintColor: colors.background
+  });
+
   componentWillMount() {
-    this.props.searchCategoryItems();
+    const { items } = this.props;
+    if (!items || !items.length) {
+      this.props.searchCategoryItems();
+    }
   }
 
   render() {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-    const { items, loading, error, categoryName } = this.props;
-    console.log("loading", loading);
-    console.log("ITEMS", items.length);
-    if (loading)
-      return (
-        <View style={loaderContainer}>
-          <ActivityIndicator size={80} color={colors.snow} />
-        </View>
-      );
+    const { items, loading } = this.props;
 
-    if (!items.length)
-      return (
-        <ScrollView style={container}>
-          <Text>List is empty</Text>
-        </ScrollView>
-      );
+    if (loading) return <Loader />;
+    if (!items.length) return <EmptyListing />;
 
     return (
-      <ScrollView style={container}>
-        <Text style={heading}>{categoryName.toUpperCase()}</Text>
-        <ListView
-          dataSource={ds.cloneWithRows(items)}
-          renderRow={item => <ItemComponent {...item} />}
-        />
-      </ScrollView>
+      <ListView
+        style={container}
+        dataSource={ds.cloneWithRows(items)}
+        renderRow={item => <ItemComponent {...item} {...this.props} />}
+      />
     );
   }
 }
-
-const Planet = () => (
-  <View
-    style={{
-      backgroundColor: colors.snow,
-      height: 80,
-      width: 80,
-      borderRadius: 100
-    }}
-  />
-);
-
-const ItemComponent = ({ name, diameter, population }) => {
-  const getPopulationString = () => {
-    if (population === "unknown" || !population) return "Unknown";
-    return population.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-  };
-
-  return (
-    <TouchableHighlight onPress={() => {}}>
-      <View
-        style={{
-          height: "auto",
-          marginBottom: 16,
-          flex: 1,
-          flexDirection: "row",
-          flexWrap: "nowrap"
-        }}
-      >
-        <Planet />
-        <View style={{ width: "100%", marginLeft: 16 }}>
-          <Text
-            style={{
-              color: colors.snow,
-              fontWeight: "900",
-              fontSize: 16,
-              paddingBottom: 8
-            }}
-          >
-            {name}
-          </Text>
-          <Divider />
-          <Text style={text}>Diameter: {diameter}</Text>
-          <Text style={text}>
-            Population: {getPopulationString()}
-          </Text>
-        </View>
-      </View>
-    </TouchableHighlight>
-  );
-};
 
 const mapStateToProps = createStructuredSelector({
   categoryName: makeSelectCategory(),
@@ -143,5 +66,12 @@ const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps
 );
+
+const { container } = StyleSheet.create({
+  container: {
+    backgroundColor: colors.background,
+    paddingHorizontal: 16
+  }
+});
 
 export default compose(withConnect)(Categories);

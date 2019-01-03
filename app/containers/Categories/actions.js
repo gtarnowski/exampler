@@ -10,5 +10,5 @@ export const searchCategoryItems = createAction(
   "CATEGORIES_SEARCH_CATEGORY_ITEMS"
 );
 
-export const setLoading = createAction('CATEGORIES_SET_LOADING')
-export const setError = createAction('CATEGORIES_SET_ERROR')
+export const setLoading = createAction("CATEGORIES_SET_LOADING");
+export const setError = createAction("CATEGORIES_SET_ERROR");

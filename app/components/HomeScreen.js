@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { View, Text } from "react-native";
-import { small, heading, container } from "../../styles";
-import Logo from '../../components/Logo'
-import CategoryTiles from '../../components/CategoryTiles'
+
+// Components, styles
+import { small, heading, container } from "../styles";
+import Logo from "./Logo";
+import CategoryTiles from "./CategoryTiles";
 
 const TXT_EXPLORE = "EXPLORE";
 const TXT_SWAPI = "Star Wars API Interpretation";

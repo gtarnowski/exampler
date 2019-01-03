@@ -33,10 +33,12 @@ export function* searchCategoryItemsSaga() {
         yield put(saveStarships(data.results));
         break;
       case "vehicles":
-        yield put(saveVehicles(data.results));
+        // temporary turned off
+        yield put(saveVehicles([]));
         break;
       case "species":
-        yield put(saveSpecies(data.results));
+        // temporary turned off
+        yield put(saveSpecies([]));
         break;
     }
 

@@ -3,7 +3,7 @@ import { createReducer } from "redux-act";
 import { saveUser } from "./actions";
 
 export const initialState = fromJS({
-  user: null,
+  user: null
 });
 
 export const methods = {

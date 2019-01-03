@@ -1,34 +1,20 @@
+// External Libs
 import React from "react";
-import t from "tcomb-form-native";
-import { createStructuredSelector } from "reselect";
-import { connect } from "react-redux";
 import { compose } from "redux";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { Text, KeyboardAvoidingView } from "react-native";
 
+// External components and styles
+
+import Form from "../../components/Form";
+import Logo from "../../components/Logo";
 import { Row, Button, LinkButton } from "../../ui";
 import { heading, container } from "../../styles";
-import Form from '../../components/Form'
-import Logo from '../../components/Logo'
+
+// Local imports
 import { submitLogin } from "./actions";
-
-const TXT_LOGIN = "LOGIN";
-
-
-const LoginModel = t.struct({
-  username: t.String,
-  password: t.String
-});
-
-const options = {
-  fields: {
-    username: {
-      placeholder: "Username"
-    },
-    password: {
-      placeholder: "Password"
-    }
-  }
-};
+import { loginOptions, LoginModel } from "./formModels";
 
 const Login = ({ navigation: { navigate }, onSubmitLogin }) => {
   let formRef = null;
@@ -47,9 +33,13 @@ const Login = ({ navigation: { navigate }, onSubmitLogin }) => {
     <KeyboardAvoidingView style={container} behavior="padding" enabled>
       <Logo />
       <Row>
-        <Text style={heading}>{TXT_LOGIN}</Text>
+        <Text style={heading}>LOGIN</Text>
       </Row>
-      <Form ref={ref => (formRef = ref)} type={LoginModel} options={options} />
+      <Form
+        ref={ref => (formRef = ref)}
+        type={LoginModel}
+        options={loginOptions}
+      />
       <Row>
         <Button title="Submit" onPress={onSubmit} />
       </Row>

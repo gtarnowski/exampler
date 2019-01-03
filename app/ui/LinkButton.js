@@ -6,7 +6,7 @@ const LinkButton = ({ onPress, title }) => (
     <View style={{ padding: 8 }}>
       <Text
         style={{
-          textTransform: 'uppercase',
+          textTransform: "uppercase",
           color: "white",
           alignSelf: "center"
         }}
